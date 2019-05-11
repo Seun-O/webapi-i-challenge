@@ -82,7 +82,7 @@ server.delete("/api/users/:id", (req, res) => {
       );
       // res.json({ message: `User with ID: ${id} successfully deleted.` });
     })
-    .catch(() => {
+    .catch(err => {
       sendError(res, 500, "The user could not be removed");
     });
 });
@@ -100,7 +100,7 @@ server.put("/api/users/:id", (req, res) => {
         res.json({ message: `Successfully updated user with ID: ${id}` });
       }
     })
-    .catch(() => {
+    .catch(err => {
       sendError(res, 500, "The user information could not be modified.");
     });
 });
