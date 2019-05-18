@@ -1,36 +1,20 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import axios from "axios";
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import UserList from "./components/UserList";
 import User from "./components/User";
+import NewUserForm from "./components/NewUserForm";
+import Menu from "./components/Layout/Menu";
 
-class App extends Component {
-  state = { users: [] };
-  render() {
-    console.log(this.state.users);
-    return (
-      <div>
-        <h1>Ring Fellowship</h1>
-        <Route path="/" render={() => <UserList users={this.state.users} />} />
-        <Route
-          path="/users/:id"
-          render={props => <User {...props} users={this.state.users} />}
-        />
-      </div>
-    );
-  }
-  componentDidMount() {
-    axios
-      .get("http://localhost:8000/api/users")
-      .then(res => {
-        console.log(res);
-        this.setState({ users: res.data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-}
+const App = () => {
+  return (
+    <Router>
+      <Menu />
+      <Route exact path="/" render={() => <UserList />} />
+      <Route path="/users/:id" render={props => <User {...props} />} />
+      <Route path="/new-user" render={props => <NewUserForm {...props} />} />
+    </Router>
+  );
+};
 
 export default App;
